@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Trirong">
+    <title>Country</title>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<style>
+    body {
+        font-family: "Trirong", serif;
+        font-size: 13px;
+    }
+</style>
+
+<body>
+    <div class="row">
+        <div class="col-12 mt-5 mb-3">
+            <div class="card bg-white">
+                <div class="card-header">
+                    <div class=" ml-3 mr-3 mt-3 mb-3">  
+                        <div class="row text-center">
+                            <div class="col-md-3 col-lg-3 col-sm-12">
+                                <label >Country Name : </label>
+                                <input type="text" placeholder="Enter Country Name" id="countryName">
+                            </div>
+                        </div>
+                        <div class="row mt-3 mb-3">
+                            <div class="col-12 text-center">
+                                <button onclick="fetchCountry()" class="btn btn-info border" > <i class="fa fa-search ml-2" ></i> Search</button>
+                                <button onclick="resetSearch()"class="btn btn-default ml-2 border"> <i class="fa fa-times ml-2" aria-hidden="true"></i> Reset</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col" ></div>
+    </div>
+    <div class="row">
+        <div class="col-12 mt-5 mb-5" id="displayData">
+
+        </div>
+    </div>
+</body>
+<script>
+    function display( country)
+    {
+        let name=country[0].name
+        let capita=country[0].capital
+        let currency_name=country[0].currencies[0].name
+        let currency_symbol=country[0].currencies[0].symbol
+        let flags=country[0].flag
+        let population=country[0].population
+        let region=country[0].region
+        let native=country[0].nativeName
+        let  code=country[0].numericCode
+        let area=country[0].area
+        console.log(name,capita,currency_name,currency_symbol,flags,population)
+        let html_data=`<div class="card">
+                            <div class="card-header">
+                                <div class="row">
+                                    <div class="col-md-1 col-lg-1 col-sm-12 ml-2">
+                                        <img src="${flags}" class="" width='110' height='100'>
+                                    </div>
+                                    <div class="col-md-4 col-lg-4 col-sm-12 ml-3">
+                                        <div class="row mt-2">
+                                            <div class="col-12 ">
+                                                <label> Country Name : <span class=" "> <b>${name} </b></span></label>
+                                            </div>
+                                            <div class="col-12">
+                                                <label> capital  : <span class=" "> <b>${capita} </b></span></label>
+                                            </div>
+                                            <div class="col-12">
+                                                <label> Currency Name : <span class=" "><b>${currency_name} </b></span></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-lg-4 col-sm-12 ml-3">
+                                        <div class="row mt-2">
+                                            <div class="col-12 ">
+                                                <label> Currency Symbol : <span class=" "> <b>${currency_symbol} </b></span></label>
+                                            </div>
+                                            <div class="col-12">
+                                                <label> Code : <span class=" "> <b>${code} </b></span></label>
+                                            </div>
+                                            <div class="col-12">
+                                                <label> Area : <span class=" "><b>${area} </b></span></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-lg-3 col-sm-12 ml-3">
+                                        <div class="row mt-2">
+                                            <div class="col-12 ">
+                                                <label> Native Name : <span class=" "> <b>${native} </b></span></label>
+                                            </div>
+                                            <div class="col-12">
+                                                <label> Population : <span class=" "> <b>${population} </b></span></label>
+                                            </div>
+                                            <div class="col-12">
+                                                <label> Region : <span class=" "><b>${region} </b></span></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>`
+            document.querySelector("#displayData").innerHTML=html_data
+
+    }
+
+
+
+    // function fetchdetais(){
+    //    // alert("haii")
+    //    let country_name = result.value
+    //     let url = `https://restcountries.eu/rest/v2/name/${country_name}?fullText=true` 
+    //     let request=new XMLHttpRequest()
+    //     request.open("get",url)
+    //     request.send()
+    //     request.onreadystatechange=()=>{
+    //         if(request.readyState==4)
+    //         {
+    //             if(request.status>199 & request.status<300)
+    //             {
+    //                 let data=JSON.parse(request.responseText)
+    //                 console.log(data)  
+    //                 display(data)              
+    //             }
+
+                
+    //         }
+
+    //     }
+    // }
+
+        function fetchCountry(){
+            // let country_name=result.value;
+            // let url=`https://restcountries.eu/rest/v2/name1/${country_name}?fullText=true`
+            // fetch(url).then(res=>{
+            //     if(!(res.ok)){
+            //         throw new Error("failed to  fetch data")
+            //     }
+            //     else{
+            //         return res.json()
+            //     }
+            //     res.json()
+            //}).then(data=>display(data)).catch(error=>alert(Error.message))
+            //alert("haii")
+            let country_name = countryName.value
+            if(country_name)
+            {
+                let url = `https://restcountries.eu/rest/v2/name/${country_name}?fullText=true` 
+                fetch(url).then(res=>{
+                if(!(res.ok)){
+                    throw new Error("failed to fetch detail")
+
+                }
+                else{
+                return res.json()
+
+                }
+            
+                }).then(data=>display(data)).catch(error=>alert(error.message));
+
+            }
+            else
+            {
+                alert("Please Enter Country Name");
+            }
+       
+        }
+        function resetSearch(){
+            document.getElementById('countryName').value = ''
+            document.querySelector("#displayData").innerHTML=''
+
+        }
+    
+        
+
+</script>
+
+</html>
